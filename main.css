@@ -4,25 +4,26 @@
     text-align: center;
 }
 
+form {
+    width: 40%;
+    margin: 50px auto;
+}
+
 .searchTerm {
-    border: 3px solid red;
-    border-radius: 5px;
+    padding:8px 15px;
+    background:rgba(50, 50, 50, 0.2);
+    border:0px solid #dbdbdb;
 }
 
 .searchButton {
-    border: 10px solid red;
-    border-radius: 5px;
+    padding: 6px 15px;
+    left: -8px;
+    border: 2px solid red;
+    background-color: red;
+    color: white;
 }
 
-.searchButton {
-    background-image: url("search.png");
-    background-color: red;
-    background-repeat: no-repeat;
-    background-position: 0px 0px;
-}
-
-.searchImg {
-    background-color: red;
-    width: 25px;
-    height: 25px;
+.searchButton:hover {
+    background-color: white;
+    color: red;
 }

@@ -3,16 +3,17 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link href="https://fonts.googleapis.com/css?family=Lora" rel="stylesheet">
         <link rel="stylesheet" href="main.css">
+        <script type="text/javascript" src="index.js"></script>
     </head>
     <body>
         <div class="container">
             <p class="header">Dota Minus</p> 
         </div>
         <div class="container text-center">
-            <div class="search">
-                <input type="text" class="searchTerm" placeholder="Enter your steam id">
-                <input type="button" class="searchButton">
-            </div>
+            <form>
+                <input type="text" class="searchTerm" placeholder="Enter your steam id" id="searchTerm">
+                <input type="button" value="Search" class="searchButton" id="searchButton" onclick="search()">
+            </form>
         </div>
     </body>
 </html>
