@@ -12,3 +12,12 @@ li {
 .headerText {
     padding: 10px 0px;
 }
+
+a {
+    text-decoration: none !important;
+    color: black;
+}
+
+.stats {
+    border: 5px solid red;
+}
