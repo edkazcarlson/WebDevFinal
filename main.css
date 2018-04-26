@@ -1,1 +1,15 @@
+.header {
+    font-family: 'Lora', serif;
+    font-size: 80pt;
+    text-align: center;
+}
 
+.searchTerm {
+    border: 3px solid red;
+    border-radius: 5px;
+}
+
+.searchButton {
+    border: 1px solid red;
+    border-radius: 5px;
+}
