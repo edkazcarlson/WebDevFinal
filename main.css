@@ -10,6 +10,19 @@
 }
 
 .searchButton {
-    border: 1px solid red;
+    border: 10px solid red;
     border-radius: 5px;
+}
+
+.searchButton {
+    background-image: url("search.png");
+    background-color: red;
+    background-repeat: no-repeat;
+    background-position: 0px 0px;
+}
+
+.searchImg {
+    background-color: red;
+    width: 25px;
+    height: 25px;
 }
