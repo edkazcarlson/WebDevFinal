@@ -10,6 +10,8 @@ function setup(){
 		if (this.readyState == 4 && this.status == 200) {
 			let rank = JSON.parse(this.responseText);
 			console.log(rank.solo_competitive_rank);
+			document.getElementById("container stats__display").innerHTML = rank.solo_competitive_rank;
+			document.getElementById("profilePic").src = rank.avatarfull;
 		}
 	}
 	oReq.open("GET", url, true);
