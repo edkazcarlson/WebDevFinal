@@ -3,10 +3,9 @@ ul {
     padding: 1%;
 }
 
-li {
+.navbar li {
     border: 3px solid red;
     text-align: center;
-    
 }
 
 .headerText {
@@ -28,4 +27,9 @@ a {
 
 #personaName {
     padding-top: 5px;
+}
+
+.heroes li {
+    border: 3px solid black;    
+    padding-top: 9px;
 }

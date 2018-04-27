@@ -44,6 +44,10 @@ function winLoss(url, requestHandler) {
 	});
 }
 
+function heroStats(url, requestHandler) {
+	
+}
+
 class RequestHandler {
 	makeRequest(method, url, handler) {
 		let request = new XMLHttpRequest();
