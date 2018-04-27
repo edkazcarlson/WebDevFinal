@@ -21,3 +21,11 @@ a {
 .stats {
     border: 5px solid red;
 }
+
+#profilePic {
+    width: auto;
+}
+
+#personaName {
+    padding-top: 5px;
+}
