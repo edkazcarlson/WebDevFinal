@@ -17,7 +17,7 @@ function setup(){
 		document.getElementById("personaName").innerHTML = profile.personaname;
 		document.getElementById("profilePic").src = profile.avatarmedium;
 	});
-
+//ignore this line, im just testing why there's 2 different plupimans for commits
 
 	winLoss(url, requestHandler);
 	heroStats(url, requestHandler);
