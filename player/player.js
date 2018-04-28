@@ -2,7 +2,6 @@ let API_URL = "https://api.opendota.com/api/";
 
 function setup(){
     let dotaID = localStorage.getItem("dotaID");
-    console.log(dotaID);
 
 	//testing requesthandler
 	const requestHandler = new RequestHandler();
@@ -22,7 +21,6 @@ function setup(){
 	requestHandler.makeRequest("GET", url, function personaName(data) {
 		const player = JSON.parse(data);
 		let profile = player.profile;
-		console.log(profile);
 		document.getElementById("personaName").innerHTML = profile.personaname;
 		document.getElementById("profilePic").src = profile.avatarmedium;
 	});
@@ -31,13 +29,14 @@ function setup(){
 	oReq.send();
 
 	winLoss(url, requestHandler);
+	heroStats(url, requestHandler);
 
 	//requestHandler = new RequestHandler();
     //requestHandler.makeRequest("GET", url, )
 }
 
 function winLoss(url, requestHandler) {
-	requestHandler.makeRequest("GET", url + "wl", function getWinLoss(data){
+	requestHandler.makeRequest("GET", url + "wl", function getWinLoss(data) {
 		let wl = JSON.parse(data);
 		document.getElementById("win").innerHTML = "Wins: " +  wl.win;
 		document.getElementById("loss").innerHTML = "Losses: " + wl.lose;
@@ -45,7 +44,18 @@ function winLoss(url, requestHandler) {
 }
 
 function heroStats(url, requestHandler) {
-	
+	var heroStats = "";
+	var heroMap = "";
+
+	requestHandler.makeRequest("GET", url + "heroes", function getHeroStats(data) {
+		heroStats = JSON.parse(data);
+		console.log(heroStats);
+	});
+	console.log(heroStats);
+	requestHandler.makeRequest("GET", API_URL + "heroes", function getHeroMap(data) {
+		heroMap = JSON.parse(data);
+		console.log(heroMap);
+	})
 }
 
 class RequestHandler {
