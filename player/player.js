@@ -22,6 +22,7 @@ function setup(){
 	winLoss(url, requestHandler);
 	heroStats(url, requestHandler);
 	soloMMR(url, requestHandler);
+	createHeroTable();
 
 	//requestHandler = new RequestHandler();
     //requestHandler.makeRequest("GET", url, )
@@ -55,6 +56,22 @@ function heroStats(url, requestHandler) {
 		heroMap = JSON.parse(data);
 		console.log(heroMap);
 	})
+}
+
+function createHeroTable(){
+	let table = document.getElementById("heroNameTable");
+	let rowCount = 4;
+	let columnCount = 5;
+	for (let i = 0; i < rowCount; i++){
+		var row = table.insertRow(i);
+		for (let j = 0; j < columnCount ; j++){
+			var cell = row.insertCell(j);
+			var divJ = document.createElement('div');
+			divJ.innerHTML(j);
+			cell.appendChild(divJ);
+		}
+		
+	}
 }
 
 class RequestHandler {
