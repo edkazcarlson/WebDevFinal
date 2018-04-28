@@ -7,14 +7,7 @@ function setup(){
 	const requestHandler = new RequestHandler();
 
 	let url = API_URL + "players/" + dotaID + "/";
-	let oReq = new XMLHttpRequest();
-	oReq.onreadystatechange = function handleReady(){
-		if (this.readyState == 4 && this.status == 200) {
-			let rank = JSON.parse(this.responseText);
-			console.log(rank.solo_competitive_rank);
-			document.getElementById("container stats__display").innerHTML = rank.solo_competitive_rank;
-		}
-	}
+
 
 	//this is how u make a request so u dont have to do the onreadystate change thing every time
 	//gets information from 
@@ -25,14 +18,20 @@ function setup(){
 		document.getElementById("profilePic").src = profile.avatarmedium;
 	});
 
-	oReq.open("GET", url, true);
-	oReq.send();
 
 	winLoss(url, requestHandler);
 	heroStats(url, requestHandler);
+	soloMMR(url, requestHandler);
 
 	//requestHandler = new RequestHandler();
     //requestHandler.makeRequest("GET", url, )
+}
+
+function soloMMR(url, requestHandler){
+	requestHandler.makeRequest("GET", url, function getMMR(data){
+		let mmr = JSON.parse(data);
+		document.getElementById("mmr").innerHTML = "MMR: " + mmr.solo_competitive_rank;
+	})
 }
 
 function winLoss(url, requestHandler) {
