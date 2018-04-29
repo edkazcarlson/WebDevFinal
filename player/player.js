@@ -23,6 +23,7 @@ function setup(){
 	heroStats(url, requestHandler);
 	soloMMR(url, requestHandler);
 	createHeroTable(document.getElementById("heroTable"));
+	
 
 	//requestHandler = new RequestHandler();
     //requestHandler.makeRequest("GET", url, )
@@ -87,3 +88,5 @@ class RequestHandler {
 		request.send();
 	}
 }
+
+setup();
