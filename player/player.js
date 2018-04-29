@@ -2,7 +2,7 @@ let API_URL = "https://api.opendota.com/api/";
 
 function setup(){
     let dotaID = localStorage.getItem("dotaID");
-
+	let heroInfo = [];
 	//testing requesthandler
 	const requestHandler = new RequestHandler();
 
@@ -29,11 +29,10 @@ function setup(){
 	oReq.send();
 
 	winLoss(url, requestHandler);
-	heroStats(url, requestHandler);
+	heroInfoFetch(url, requestHandler);
 	console.log(document.getElementById("heroTable"));
 	soloMMR(url, requestHandler);
 	createHeroTable(document.getElementById("heroTable"));
-
 
 	//requestHandler = new RequestHandler();
     //requestHandler.makeRequest("GET", url, )
@@ -47,24 +46,41 @@ function winLoss(url, requestHandler) {
 	});
 }
 
-function heroStats(url, requestHandler) {
-	var heroStats = {stats: false};
-	var heroMap = {map: false};
-
-	requestHandler.makeRequest("GET", url + "heroes", function getHeroStats(data) {
-		heroStats.stats = JSON.parse(data);
-	});
-
+function heroInfoFetch(url, requestHandler) {
 	requestHandler.makeRequest("GET", API_URL + "heroes", function getHeroMap(data) {
-		heroMap.map = JSON.parse(data);
-	})
-
-	let stats = heroStats.stats;
-	let map = heroMap.map;
-	console.log(heroMap);
-	console.log(heroMap.map);
+		let names = JSON.parse(data);
+		heroStatsFetch(names, requestHandler, url);
+	});
+	
 }
 
+function heroStatsFetch(heroNames, requestHandler, url) {
+	requestHandler.makeRequest("GET", url + "heroes", function getHeroStats(data) {
+		let heroStats = JSON.parse(data);
+		console.log(heroNames);
+		console.log(heroStats);
+		var userHeroInfo = [];
+		for (i = 0; i < heroNames.length; i++) {
+			for (j = 0; j < heroStats.length; j++) {
+				let name = heroNames[i];
+				let hero = heroStats[j];
+				if (name.id == hero.hero_id) {
+					userHeroInfo.push({id: name.id, 
+						name: name.localized_name, 
+						last_played: hero.last_played,
+						games: hero.games,
+						win: hero.win,
+						with_games: hero.with_games,
+						with_win: hero.with_win,
+						against_games: hero.against_games,
+						against_win: hero.against_win
+					});
+				}
+			}
+		}
+		heroInfo = userHeroInfo;
+	});
+}
 
 class RequestHandler {
 	makeRequest(method, url, handler) {
