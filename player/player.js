@@ -30,9 +30,10 @@ function setup(){
 
 	winLoss(url, requestHandler);
 	heroStats(url, requestHandler);
+	console.log(document.getElementById("heroTable"));
 	soloMMR(url, requestHandler);
 	createHeroTable(document.getElementById("heroTable"));
-	
+
 
 	//requestHandler = new RequestHandler();
     //requestHandler.makeRequest("GET", url, )
