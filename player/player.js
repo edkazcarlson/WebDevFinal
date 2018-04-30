@@ -20,12 +20,12 @@ function setup(){
 
 	winLoss(url, requestHandler);
 	heroInfoFetch(url, requestHandler);
-	console.log(document.getElementById("heroTable")+"ree");
 	soloMMR(url, requestHandler);
-	createHeroTable(document.getElementById("heroTable"));
+	
 
 	//requestHandler = new RequestHandler();
-    //requestHandler.makeRequest("GET", url, )
+	//requestHandler.makeRequest("GET", url, )
+	
 }
 
 function winLoss(url, requestHandler) {
@@ -41,7 +41,6 @@ function heroInfoFetch(url, requestHandler) {
 		let names = JSON.parse(data);
 		heroStatsFetch(names, requestHandler, url);
 	});
-	
 }
 
 function soloMMR(url, requestHandler){
@@ -51,17 +50,24 @@ function soloMMR(url, requestHandler){
 	})
 }
 
-function createHeroTable(table){
-	console.log(table);
+function createHeroTable(table, heroInfo){
+	console.log(heroInfo);
 	var rowCount = 115;
 	var columnCount = 5;
 	for (var i = 0; i < rowCount; i++){
 		var row = table.insertRow(i+1);
-		for (var j = 0; j < columnCount ; j++){
-			var cell = row.insertCell(j);
-			cell.innerHTML = j;
-		}
-		
+		let heroJSON = heroInfo[i];
+		var nameCell = row.insertCell(0);
+		nameCell.innerHTML = heroJSON.name;
+		var DKACell = row.insertCell(1);
+		DKACell.innerHTML = "boy I dont know how";
+		var lossCell = row.insertCell(2);
+		lossCell.innerHTML = ((heroJSON.games - heroJSON.win)/(heroJSON.games))*100	 + "%";
+		var lossVSCell = row.insertCell(3);
+		lossVSCell.innerHTML = ((heroJSON.against_games - heroJSON.against_win)/(heroJSON.against_games))*100	 + "%";
+		var worstMatchCell = row.insertCell(4);
+		worstMatchCell.innerHTML = "boi i dont know";
+
 	}
 }
 	
@@ -91,7 +97,9 @@ function heroStatsFetch(heroNames, requestHandler, url) {
 			}
 		}
 		heroInfo = userHeroInfo;
+		createHeroTable(document.getElementById("heroTable"), heroInfo);
 	});
+	
 }
 
 class RequestHandler {
