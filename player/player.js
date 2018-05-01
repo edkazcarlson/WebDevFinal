@@ -65,8 +65,8 @@ function createHeroTable(table, heroInfo){
 		lossCell.innerHTML = Math.round(((heroJSON.games - heroJSON.win)/(heroJSON.games))*1000)/10	 + "%";
 		var lossVSCell = row.insertCell(3);
 		lossVSCell.innerHTML = Math.round(((heroJSON.against_games - heroJSON.against_win)/(heroJSON.against_games))*1000)/10	 + "%";
-		var worstMatchCell = row.insertCell(4);
-		worstMatchCell.innerHTML = "boi i dont know";
+		var legsCell = row.insertCell(4);
+		legsCell.innerHTML = heroJSON.legs;
 
 	}
 }
@@ -91,7 +91,8 @@ function heroStatsFetch(heroNames, requestHandler, url) {
 						with_games: hero.with_games,
 						with_win: hero.with_win,
 						against_games: hero.against_games,
-						against_win: hero.against_win
+						against_win: hero.against_win,
+						legs: name.legs
 					});
 				}
 			}
