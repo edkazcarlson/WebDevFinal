@@ -25,22 +25,20 @@ a {
     background-color: #67B4DE;
 }
 
-.headerItem:hover {
-    background-color: #437691;
-}
 
-.headerText a {
-    color: #000;
+.headerText a:hover {
+    color: white;
 }
 
 .active {
-    background-color: #67B4DE;
+    color: white;
 }
 
 /* u s e r i n f o */
 
 .basicUserInfo {
     background-color: #A9CBDE;
+    padding: 1%;
 }
 
 #profilePic {
@@ -54,6 +52,11 @@ a {
 }
 
 #heroTable {
-    padding-left: 5%;
-    padding-right: 5%;
+    padding-left: 10%;
+    padding-right: 7%;
+}
+
+.col-special {
+    width: 20%;
+    text-align: center;
 }
