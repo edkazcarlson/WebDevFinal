@@ -62,9 +62,9 @@ function createHeroTable(table, heroInfo){
 		var DKACell = row.insertCell(1);
 		DKACell.innerHTML = "boy I dont know how";
 		var lossCell = row.insertCell(2);
-		lossCell.innerHTML = ((heroJSON.games - heroJSON.win)/(heroJSON.games))*100	 + "%";
+		lossCell.innerHTML = Math.round(((heroJSON.games - heroJSON.win)/(heroJSON.games))*1000)/10	 + "%";
 		var lossVSCell = row.insertCell(3);
-		lossVSCell.innerHTML = ((heroJSON.against_games - heroJSON.against_win)/(heroJSON.against_games))*100	 + "%";
+		lossVSCell.innerHTML = Math.round(((heroJSON.against_games - heroJSON.against_win)/(heroJSON.against_games))*1000)/10	 + "%";
 		var worstMatchCell = row.insertCell(4);
 		worstMatchCell.innerHTML = "boi i dont know";
 
