@@ -8,11 +8,11 @@
     <body>
 
         <div class="container header">
-            <ul class="row navbar">
-                <li class="col-md"><h1 class="headerText"><a href="../index.html">Dota Minus</a></h1></li>
-                <li class="col-sm"><h2 class="headerText">Heroes</h2></li>
-                <li class="col-sm"><h2 class="headerText">Matches</h2></li>
-                <li class="col-sm"><h2 class="headerText">Records</h2></li>
+            <ul class="navbar">
+                <li class="headerItem"><h1 class="headerText"><a href="../index.html">Dota Minus</a></h1></li>
+                <li class="headerItem active"><h2 class="headerText"><a href="../index.html">Heroes</a></h2></li>
+                <li class="headerItem"><h2 class="headerText"><a href="../index.html">Matches</a></h2></li>
+                <li class="headerItem"><h2 class="headerText"><a href="../index.html">Records</a></h2></li>
             </ul>
         </div>
 
@@ -28,25 +28,16 @@
            
         </div>
 
-        <div class="container" id="heroStatBox">
-            <ul class="row heroes">
-                <li class="col-md"><h2>Hero Name</h1></li>
-                <li class="col-sm"><h3>D-K-A</h2></li>
-                <li class="col-sm"><h3>Loss %</h2></li>
-                <li class="col-sm"><h3>Loss % Against</h2></li>
-                <li class="col-sm"><h3>Worst Match</h2></li>
-            </ul>
-        </div>
-
         <div class="container" id="heroContainer">
-            <table id="heroTable">
-                <thead>
+            
+            <table class="row">
+                <thead id="heroTable">
                     <tr>
-                        <th>Placeholder hero name head </th>
-                        <th>Placeholder DKA head </th>
-                        <th>Placeholder loss% head </th>
-                        <th>Placeholder loss vs head</th>
-                        <th>Placeholder worst match head</th>
+                        <th class="col-sm-auto">Hero Name</th>
+                        <th class="col-sm-auto">D-K-A</th>
+                        <th class="col-sm-auto">Loss %</th>
+                        <th class="col-sm">Loss % Against</th>
+                        <th class="col-sm">Worst Match</th>
                     </tr>
                 </thead>
             </table>

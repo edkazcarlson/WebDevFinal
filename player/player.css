@@ -1,15 +1,11 @@
+/* c o r e s t u f f */
+body {
+    background-color: #2C4C5E;
+}
+
 ul {
     list-style-type: none;
-    padding: 1%;
-}
-
-.navbar li {
-    border: 3px solid red;
-    text-align: center;
-}
-
-.headerText {
-    padding: 10px 0px;
+    overflow: hidden;
 }
 
 a {
@@ -17,19 +13,47 @@ a {
     color: black;
 }
 
-.stats {
-    border: 5px solid red;
+/* n a v b a r */
+
+.header {
+    margin-top: 10px;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.navbar {
+    background-color: #67B4DE;
+}
+
+.headerItem:hover {
+    background-color: #437691;
+}
+
+.headerText a {
+    color: #000;
+}
+
+.active {
+    background-color: #67B4DE;
+}
+
+/* u s e r i n f o */
+
+.basicUserInfo {
+    background-color: #A9CBDE;
 }
 
 #profilePic {
     width: auto;
 }
 
-#personaName {
-    padding-top: 5px;
+/* h e r o s t a t t a b l e */
+
+#heroContainer {
+    background-color: #A9CBDE;
 }
 
-.heroes li {
-    border: 3px solid black;    
-    padding-top: 9px;
+#heroTable {
+    padding-left: 5%;
+    padding-right: 5%;
 }

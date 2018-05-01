@@ -1,7 +1,7 @@
-.header {
-    font-family: 'Lora', serif;
-    font-size: 80pt;
-    text-align: center;
+/* c o r e s t u f f */
+
+body {
+    background-color: #2C4C5E;
 }
 
 form {
@@ -9,6 +9,23 @@ form {
     margin: 50px auto;
 }
 
+/* h e a d e r */
+
+.header {
+    font-size: 80pt;
+    text-align: center;
+    background-color: #67B4DE;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+/* s e a r c h b o x*/
+
+.search {
+    background-color: #67B4DE;
+    height: 100%;
+    padding-top: 1;
+}
 .searchTerm {
     padding:8px 15px;
     background:rgba(50, 50, 50, 0.2);
