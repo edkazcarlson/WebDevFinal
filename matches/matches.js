@@ -18,8 +18,7 @@ function setup(){
 		document.getElementById("profilePic").src = profile.avatarmedium;
 	});
 
-	soloMMR(url, requestHandler);
-	winLoss(url, requestHandler);
+	getRecentMatches(url, requestHandler);
 
 
 	//requestHandler = new RequestHandler();
@@ -27,25 +26,25 @@ function setup(){
 	
 }
 
-function soloMMR(url, requestHandler){
-	requestHandler.makeRequest("GET", url, function getMMR(data){
-		let mmr = JSON.parse(data);
-		document.getElementById("mmr").innerHTML = "MMR: " + mmr.solo_competitive_rank;
-	})
-}	
-
-function winLoss(url, requestHandler) {
-	requestHandler.makeRequest("GET", url + "wl", function getWinLoss(data) {
-		let wl = JSON.parse(data);
-		document.getElementById("win").innerHTML = "Wins: " +  wl.win;
-		document.getElementById("loss").innerHTML = "Losses: " + wl.lose;
+function getRecentMatches(url, requestHandler) {
+	requestHandler.makeRequest("GET", url + "recentmatches", function (data) {
+		let matchStats = JSON.parse(data);
+		let matchArray = [];
+		for (let i = 0; i < 15 ; i++){
+			var curMatch = matchStats[i];
+			matchArray.push({matchID : curMatch.match_id, 
+			kills: curMatch.kills,
+			deaths: curMatch.deaths,
+			assists: curMatch.assists});
+		}
+		matchStatsFetch(matchArray, requestHandler);
 	});
 }
 
-function getRecentMatches(url, requestHandler) {
-	requestHandler.makeRequest("GET", url, function (data) {
-
-	});
+function matchStatsFetch(matches, requestHandler){
+	for (let i = 0; i < 15 ; i++){
+		console.log(matches[i]);
+	}
 }
 
 class RequestHandler {
@@ -61,4 +60,12 @@ class RequestHandler {
 	}
 }
 
+
+function createMatchTable(table, matchInfo){
+	var rowCount = 15;
+	var columnCount = 5;
+	for (var i = 0; i < rowCount; i++){
+
+	}
+}
 setup();
