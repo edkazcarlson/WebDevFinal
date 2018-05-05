@@ -2,7 +2,7 @@
     <head>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link href="https://fonts.googleapis.com/css?family=Lora" rel="stylesheet">    
-        <link rel="stylesheet" href="player.css">
+        <link rel="stylesheet" href="records.css">
         
     </head>
     <body>
@@ -10,9 +10,9 @@
         <div class="container header">
             <ul class="navbar">
                 <li class="headerItem"><h1 class="headerText"><a href="../index.html">Dota Minus</a></h1></li>
-                <li class="headerItem"><h2 class="headerText"><a href="../index.html" class="active">Heroes</a></h2></li>
+                <li class="headerItem"><h2 class="headerText"><a href="../player/player.html">Heroes</a></h2></li>
                 <li class="headerItem"><h2 class="headerText"><a href="../matches/matches.html">Matches</a></h2></li>
-                <li class="headerItem"><h2 class="headerText"><a href="../records/records.html">Records</a></h2></li>
+                <li class="headerItem"><h2 class="headerText"><a class="active" href="records.html">Records</a></h2></li>
             </ul>
         </div>
 
@@ -28,20 +28,22 @@
            
         </div>
 
-        <div class="container" id="heroContainer">
-            
-            <table class="row">
-                <thead id="heroTable">
-                    <tr>
-                        <th class="col-special">Hero Name</th>
-                        <th class="col-special">D-K-A</th>
-                        <th class="col-special">Loss %</th>
-                        <th class="col-special">Loss % Against</th>
-                        <th class="col-special">Legs</th>
-                    </tr>
-                </thead>
-            </table>
+        <div class="container recordTable">
+            <div class="row">
+                <div class="col" id="maxDeaths">Kills</div>
+                <div class="col" id="minHeroDMG">Kills</div>
+                <div class="col" id="minXP">Kills</div>
+                <div class="w-100"></div>
+                <div class="col" id="worstKDA">Kills</div>
+                <div class="col" id="minTime">Kills</div>
+                <div class="col" id="losingStreak">Losing Streak</div>
+                <div class="w-100"></div>
+                <div class="col" id="minNetWorth">Kills</div>
+                <div class="col" id="minTowerDMG">Kills</div>
+                <div class="col" id="minLastHits">Kills</div>
+            </div>
         </div>
-        <script type="text/javascript" src="player.js"></script>
+
+        <script type="text/javascript" src="records.js"></script>
     </body>
 </html>

@@ -1,0 +1,60 @@
+/* c o r e s t u f f */
+body {
+    background-color: #2C4C5E;
+}
+
+ul {
+    list-style-type: none;
+    overflow: hidden;
+}
+
+a {
+    text-decoration: none !important;
+    color: black;
+}
+
+/* n a v b a r */
+
+.header {
+    margin-top: 10px;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.navbar {
+    background-color: #67B4DE;
+}
+
+
+.headerText a:hover {
+    color: white;
+}
+
+.active {
+    color: white;
+}
+
+/* u s e r i n f o */
+
+.basicUserInfo {
+    background-color: #A9CBDE;
+    padding: 1%;
+}
+
+#profilePic {
+    width: auto;
+}
+
+/* r e c o r d t a b l e */
+
+.recordTable {
+    background-color: #A9CBDE;
+    padding: 1%;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.w-100 {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
