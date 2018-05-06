@@ -38,7 +38,10 @@ function winLoss(url, requestHandler) {
 
 function soloMMR(url, requestHandler) {
 	requestHandler.makeRequest("GET", url, function getMMR(data){
-		let mmr = JSON.parse(data);
+        let mmr = JSON.parse(data);
+        if (mmr.solo_competitive_rank == null) {
+            mmr.solo_competitive_rank = "n/a";
+        }
 		document.getElementById("mmr").innerHTML = "MMR: " + mmr.solo_competitive_rank;
 	})
 }	
@@ -61,7 +64,8 @@ function getRecords(url, requestHandler) {
         let netWorth;
         let towerDMG = Number.MAX_SAFE_INTEGER;
         let lastHits = Number.MAX_SAFE_INTEGER;
-
+        let streak = 0;
+        let tempStreak = 0;
         for (i = 0; i < matches.length; i++) {
             let m = matches[i];
             if (maxDeaths < m.deaths) {
@@ -96,6 +100,29 @@ function getRecords(url, requestHandler) {
             if (lastHits > m.last_hits) {
                 lastHits = m.last_hits;
             }
+            let flag = false;
+            if (m.player_slot < 128) {
+                //player is on radiant
+                if (m.radiant_win == false) {
+                    tempStreak++;
+                } else {
+                    flag = true;
+                }
+            } else {
+                if (m.radiant_win == true) {
+                    tempStreak++;
+                } else {
+                    flag = true;
+                }
+            }
+
+            if (tempStreak > streak) {
+                streak = tempStreak;
+            }
+
+            if (flag) {
+                tempStreak = 0;
+            }
         }
         document.getElementById("maxDeaths").innerHTML = maxDeaths;
         document.getElementById("minHeroDMG").innerHTML = heroDMG;
@@ -105,6 +132,7 @@ function getRecords(url, requestHandler) {
         document.getElementById("minNetWorth").innerHTML = Math.round(netWorth);
         document.getElementById("minTowerDMG").innerHTML = towerDMG;
         document.getElementById("minLastHits").innerHTML = lastHits;
+        document.getElementById("losingStreak").innerHTML = streak;
     });
 }
 

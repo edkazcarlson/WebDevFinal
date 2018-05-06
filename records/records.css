@@ -54,6 +54,10 @@ a {
     text-align: center;
 }
 
+.header {
+    padding-bottom: 10px;
+}
+
 .w-100 {
     padding-top: 5px;
     padding-bottom: 5px;

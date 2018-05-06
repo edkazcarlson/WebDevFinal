@@ -46,6 +46,9 @@ function heroInfoFetch(url, requestHandler) {
 function soloMMR(url, requestHandler){
 	requestHandler.makeRequest("GET", url, function getMMR(data){
 		let mmr = JSON.parse(data);
+		if (mmr.solo_competitive_rank == null) {
+            mmr.solo_competitive_rank = "n/a";
+        }
 		document.getElementById("mmr").innerHTML = "MMR: " + mmr.solo_competitive_rank;
 	})
 }
