@@ -30,6 +30,8 @@ function getRecentMatches(url, requestHandler) {
 	requestHandler.makeRequest("GET", url + "recentmatches", function (data) {
 		let matchStats = JSON.parse(data);
 		let matchArray = [];
+		console.log(matchStats);
+		console.log(matchStats[0].match_id);
 		for (let i = 0; i < 15 ; i++){
 			var curMatch = matchStats[i];
 			matchArray.push({matchID : curMatch.match_id, 
@@ -37,13 +39,31 @@ function getRecentMatches(url, requestHandler) {
 			deaths: curMatch.deaths,
 			assists: curMatch.assists});
 		}
-		matchStatsFetch(matchArray, requestHandler);
+		matchStatsFetch(matchStats, requestHandler);
 	});
 }
 
 function matchStatsFetch(matches, requestHandler){
-	for (let i = 0; i < 15 ; i++){
-		console.log(matches[i]);
+	console.log(matches);
+	let matchData = [];
+	for (let i = 0; i < 20 ; i++){
+		requestHandler.makeRequest("GET", API_URL + "matches/" + matches[i].match_id, function (data){
+			let indivMatchData = JSON.parse(data);
+			let hasFound = false;
+			let playerValue = 0;
+			while (hasFound != true){
+				if (indivMatchData.players[playerValue].player_slot == matches[i].player_slot){
+					hasFound = true;
+				} else {
+					playerValue++;
+				}
+			}
+			let playerData = indivMatchData.players[playerValue].player_slot;		
+			matchData.push({matchID = matches[i].match_id,
+							hero = })
+		});
+		console.log(matches[i].matchID);
+
 	}
 }
 
