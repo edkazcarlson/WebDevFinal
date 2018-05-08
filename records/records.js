@@ -18,9 +18,9 @@ function setup(){
 		document.getElementById("profilePic").src = profile.avatarmedium;
 	});
 
+    document.getElementById("loader").innerHTML = '<div class="sk-cube-grid"><div class="sk-cube sk-cube1"></div><div class="sk-cube sk-cube2"></div><div class="sk-cube sk-cube3"></div><div class="sk-cube sk-cube4"></div><div class="sk-cube sk-cube5"></div><div class="sk-cube sk-cube6"></div><div class="sk-cube sk-cube7"></div><div class="sk-cube sk-cube8"></div><div class="sk-cube sk-cube9"></div></div>';
 	winLoss(url, requestHandler);
 	soloMMR(url, requestHandler);
-    
     getRecords(url, requestHandler);
 
 	//requestHandler = new RequestHandler();
@@ -107,12 +107,15 @@ function getRecords(url, requestHandler) {
                     tempStreak++;
                 } else {
                     flag = true;
+                    console.log(m.match_id);
                 }
             } else {
+                //player is on dire
                 if (m.radiant_win == true) {
                     tempStreak++;
                 } else {
                     flag = true;
+                    console.log(m.match_id);
                 }
             }
 
@@ -127,12 +130,13 @@ function getRecords(url, requestHandler) {
         document.getElementById("maxDeaths").innerHTML = maxDeaths;
         document.getElementById("minHeroDMG").innerHTML = heroDMG;
         document.getElementById("minXP").innerHTML = Math.round(minXP);
-        document.getElementById("worstKDA").innerHTML = kda;
-        document.getElementById("minTime").innerHTML = gameTime;
+        document.getElementById("worstKDA").innerHTML = kda[0] + "-" + kda[1] + "-" + kda[2];
+        document.getElementById("minTime").innerHTML = Math.round(gameTime/60) + ":" + gameTime % 60;
         document.getElementById("minNetWorth").innerHTML = Math.round(netWorth);
         document.getElementById("minTowerDMG").innerHTML = towerDMG;
         document.getElementById("minLastHits").innerHTML = lastHits;
         document.getElementById("losingStreak").innerHTML = streak;
+        document.getElementById("loader").innerHTML = "";
     });
 }
 

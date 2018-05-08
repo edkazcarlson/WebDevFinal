@@ -18,6 +18,7 @@ function setup(){
 		document.getElementById("profilePic").src = profile.avatarmedium;
 	});
 
+	document.getElementById("loader").innerHTML = '<div class="sk-cube-grid"><div class="sk-cube sk-cube1"></div><div class="sk-cube sk-cube2"></div><div class="sk-cube sk-cube3"></div><div class="sk-cube sk-cube4"></div><div class="sk-cube sk-cube5"></div><div class="sk-cube sk-cube6"></div><div class="sk-cube sk-cube7"></div><div class="sk-cube sk-cube8"></div><div class="sk-cube sk-cube9"></div></div>';
 	winLoss(url, requestHandler);
 	heroInfoFetch(url, requestHandler);
 	soloMMR(url, requestHandler);
@@ -50,6 +51,7 @@ function soloMMR(url, requestHandler){
             mmr.solo_competitive_rank = "n/a";
         }
 		document.getElementById("mmr").innerHTML = "MMR: " + mmr.solo_competitive_rank;
+		document.getElementById("loader").innerHTML = "";
 	})
 }
 
@@ -65,7 +67,11 @@ function createHeroTable(table, heroInfo){
 		var DKACell = row.insertCell(1);
 		DKACell.innerHTML = "boy I dont know how";
 		var lossCell = row.insertCell(2);
-		lossCell.innerHTML = Math.round(((heroJSON.games - heroJSON.win)/(heroJSON.games))*1000)/10	 + "%";
+		if (heroJSON.games == 0) {
+			lossCell.innerHTML = "n/a";
+		} else {
+			lossCell.innerHTML = Math.round(((heroJSON.games - heroJSON.win)/(heroJSON.games))*1000)/10	 + "%";
+		}
 		var lossVSCell = row.insertCell(3);
 		lossVSCell.innerHTML = Math.round(((heroJSON.against_games - heroJSON.against_win)/(heroJSON.against_games))*1000)/10	 + "%";
 		var legsCell = row.insertCell(4);
