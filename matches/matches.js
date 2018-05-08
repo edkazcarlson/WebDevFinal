@@ -2,7 +2,7 @@ let API_URL = "https://api.opendota.com/api/";
 
 function setup(){
     let dotaID = localStorage.getItem("dotaID");
-	let heroInfo = [];
+	let matchInfo = [];
 	//testing requesthandler
 	const requestHandler = new RequestHandler();
 
@@ -18,7 +18,7 @@ function setup(){
 		document.getElementById("profilePic").src = profile.avatarmedium;
 	});
 
-	getRecentMatches(url, requestHandler);
+	getRecentMatches(url, requestHandler, matchInfo);
 
 
 	//requestHandler = new RequestHandler();
@@ -26,7 +26,7 @@ function setup(){
 	
 }
 
-function getRecentMatches(url, requestHandler) {
+function getRecentMatches(url, requestHandler, matchInfo) {
 	requestHandler.makeRequest("GET", url + "recentmatches", function (data) {
 		let matchStats = JSON.parse(data);
 		let matchArray = [];
@@ -39,13 +39,20 @@ function getRecentMatches(url, requestHandler) {
 			deaths: curMatch.deaths,
 			assists: curMatch.assists});
 		}
-		matchStatsFetch(matchStats, requestHandler);
+		matchStatsFetch(matchStats, requestHandler, url, matchInfo);
 	});
 }
 
-function matchStatsFetch(matches, requestHandler){
+function matchStatsFetch(matches, requestHandler, url, matchInfo){
+	let heroNamesToID = [];
+	requestHandler.makeRequest("GET", API_URL + "heroes", function getHeroStats(data) {
+		let heroNames = JSON.parse(data);
+		for (let i = 0; i < heroNames.length ; i++){
+			heroNamesToID.push(heroNames[i].localized_name);
+		}
+	});
 	console.log(matches);
-	let matchData = [];
+	var matchData = [];
 	for (let i = 0; i < 20 ; i++){
 		requestHandler.makeRequest("GET", API_URL + "matches/" + matches[i].match_id, function (data){
 			let indivMatchData = JSON.parse(data);
@@ -59,12 +66,21 @@ function matchStatsFetch(matches, requestHandler){
 				}
 			}
 			let playerData = indivMatchData.players[playerValue].player_slot;		
-			matchData.push({matchID = matches[i].match_id,
-							hero = })
+			matchData.push({matchID : matches[i].match_id,
+							hero : indivMatchData.players[playerValue].hero_id,
+							kills : indivMatchData.players[playerValue].kills,
+							deaths: indivMatchData.players[playerValue].deaths,
+							assists: indivMatchData.players[playerValue].assists,
+							seconds: indivMatchData.players[playerValue].duration,
+							result: indivMatchData.radiant_win,
+							usage_5 : indivMatchData.players[playerValue].item_5});
+			console.log(matchData);
+			matchInfo = matchData;
 		});
-		console.log(matches[i].matchID);
-
 	}
+	
+	console.log(matchInfo.length);
+	createMatchTable(document.getElementById("matchTable"), matchData);
 }
 
 class RequestHandler {
@@ -81,11 +97,28 @@ class RequestHandler {
 }
 
 
-function createMatchTable(table, matchInfo){
-	var rowCount = 15;
+function createMatchTable(table, matchData){
+	console.log(matchData);
+	var rowCount = 15;	
 	var columnCount = 5;
 	for (var i = 0; i < rowCount; i++){
-
+		var row = table.insertRow(i+1);
+		var matchJSON = matchData[i];
+		console.log(matchJSON);
+		var heroCell = row.insertCell(0);
+		heroCell.innerHTML = matchJSON.hero;
+		var DKACell = row.insertCell(1);
+		DKACell.innerHTML = matchJSON.deaths +","+matchJSON.kills+","+matchJSON.assists;
+		var durationCell = row.insertCell(2);
+		durationCell.innerHTML = Math.round(matchJSON.seconds/60)+":"+matchJSON.seconds % 60
+		var resultCell = row.insertCell(3);
+		if (matchJSON.result == true){
+			resultCell.innerHTML = "Radiant Victory";
+		} else {
+			resultCell.innerHTML = "Dire Victory";
+		}
+		var item5Cell = row.insertCell(4);
+		item5Cell.innerHTML = matchJSON.usage_5;
 	}
 }
 setup();
