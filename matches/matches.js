@@ -40,11 +40,11 @@ function getRecentMatches(url, requestHandler, matchInfo) {
 			deaths: curMatch.deaths,
 			assists: curMatch.assists});
 		}
-		matchStatsFetch(matchStats, requestHandler, url);
+		heroNameIDFetch(matchStats, requestHandler, url);
 	});
 }
 
-function matchStatsFetch(matches, requestHandler, url){
+function heroNameIDFetch(matchStats, requestHandler, url){
 	console.log(matchInfo);
 	let heroNamesToID = [];
 	requestHandler.makeRequest("GET", API_URL + "heroes", function getHeroStats(data) {
@@ -52,8 +52,11 @@ function matchStatsFetch(matches, requestHandler, url){
 		for (let i = 0; i < heroNames.length ; i++){
 			heroNamesToID.push(heroNames[i].localized_name);
 		}
+		matchStatsFetch(matchStats, requestHandler, url, heroNamesToID)
 	});
-	console.log(heroNamesToID[0]);
+}
+function matchStatsFetch(matches, requestHandler, url, heroNamesToID){
+	console.log(heroNamesToID);
 	for (let i = 0 ; i < 20 ; i++){
 		requestHandler.makeRequest("GET", API_URL + "matches/" + matches[i].match_id, function (data){
 			let indivMatchData = JSON.parse(data);
