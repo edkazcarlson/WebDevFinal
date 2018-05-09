@@ -1,5 +1,6 @@
 let API_URL = "https://api.opendota.com/api/";
 var matchInfo = [];
+var iteration = 0;
 function setup(){
     let dotaID = localStorage.getItem("dotaID");
 	
@@ -52,9 +53,8 @@ function matchStatsFetch(matches, requestHandler, url){
 			heroNamesToID.push(heroNames[i].localized_name);
 		}
 	});
-	console.log(matches);
-	//var matchData = [];
-		
+	console.log(heroNamesToID[0]);
+	for (let i = 0 ; i < 20 ; i++){
 		requestHandler.makeRequest("GET", API_URL + "matches/" + matches[i].match_id, function (data){
 			let indivMatchData = JSON.parse(data);
 			let hasFound = false;
@@ -76,7 +76,7 @@ function matchStatsFetch(matches, requestHandler, url){
 							result: indivMatchData.radiant_win,
 							usage_5 : indivMatchData.players[playerValue].item_5});*/
 			//matchInfo = matchData;
-			createMatchTable(document.getElementById("matchTable"), i,{matchID : matches[i].match_id,
+			createMatchTable(document.getElementById("matchTable"),{matchID : matches[i].match_id,
 																		hero : indivMatchData.players[playerValue].hero_id,
 																		kills : indivMatchData.players[playerValue].kills,
 																		deaths: indivMatchData.players[playerValue].deaths,
@@ -85,6 +85,8 @@ function matchStatsFetch(matches, requestHandler, url){
 																		result: indivMatchData.radiant_win,
 																		usage_5 : indivMatchData.players[playerValue].item_5} );
 		});
+	}
+		
 	
 	console.log(matchInfo.length);
 	console.log(matchInfo);
@@ -105,10 +107,10 @@ class RequestHandler {
 }
 
 
-function createMatchTable(table, i, matchJSON){
+function createMatchTable(table, matchJSON){
 	console.log(table);
-	console.log(i);
-	var row = table.insertRow(i+1);
+	console.log(iteration);
+	var row = table.insertRow(iteration+1);
 	console.log(matchJSON);
 	var heroCell = row.insertCell(0);
 	heroCell.innerHTML = matchJSON.hero;
@@ -124,6 +126,7 @@ function createMatchTable(table, i, matchJSON){
 	}
 	var item5Cell = row.insertCell(4);
 	item5Cell.innerHTML = matchJSON.usage_5;
+	iteration++;
 }
 
 setup();
