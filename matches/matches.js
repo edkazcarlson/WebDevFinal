@@ -1,8 +1,8 @@
 let API_URL = "https://api.opendota.com/api/";
-
+var matchInfo = [];
 function setup(){
     let dotaID = localStorage.getItem("dotaID");
-	let matchInfo = [];
+	
 	//testing requesthandler
 	const requestHandler = new RequestHandler();
 
@@ -39,11 +39,12 @@ function getRecentMatches(url, requestHandler, matchInfo) {
 			deaths: curMatch.deaths,
 			assists: curMatch.assists});
 		}
-		matchStatsFetch(matchStats, requestHandler, url, matchInfo);
+		matchStatsFetch(matchStats, requestHandler, url);
 	});
 }
 
-function matchStatsFetch(matches, requestHandler, url, matchInfo){
+function matchStatsFetch(matches, requestHandler, url){
+	console.log(matchInfo);
 	let heroNamesToID = [];
 	requestHandler.makeRequest("GET", API_URL + "heroes", function getHeroStats(data) {
 		let heroNames = JSON.parse(data);
@@ -52,8 +53,8 @@ function matchStatsFetch(matches, requestHandler, url, matchInfo){
 		}
 	});
 	console.log(matches);
-	var matchData = [];
-	for (let i = 0; i < 20 ; i++){
+	//var matchData = [];
+		
 		requestHandler.makeRequest("GET", API_URL + "matches/" + matches[i].match_id, function (data){
 			let indivMatchData = JSON.parse(data);
 			let hasFound = false;
@@ -66,21 +67,28 @@ function matchStatsFetch(matches, requestHandler, url, matchInfo){
 				}
 			}
 			let playerData = indivMatchData.players[playerValue].player_slot;		
-			matchData.push({matchID : matches[i].match_id,
+			/*matchInfo.push({matchID : matches[i].match_id,
 							hero : indivMatchData.players[playerValue].hero_id,
 							kills : indivMatchData.players[playerValue].kills,
 							deaths: indivMatchData.players[playerValue].deaths,
 							assists: indivMatchData.players[playerValue].assists,
 							seconds: indivMatchData.players[playerValue].duration,
 							result: indivMatchData.radiant_win,
-							usage_5 : indivMatchData.players[playerValue].item_5});
-			console.log(matchData);
-			matchInfo = matchData;
+							usage_5 : indivMatchData.players[playerValue].item_5});*/
+			//matchInfo = matchData;
+			createMatchTable(document.getElementById("matchTable"), i,{matchID : matches[i].match_id,
+																		hero : indivMatchData.players[playerValue].hero_id,
+																		kills : indivMatchData.players[playerValue].kills,
+																		deaths: indivMatchData.players[playerValue].deaths,
+																		assists: indivMatchData.players[playerValue].assists,
+																		seconds: indivMatchData.players[playerValue].duration,
+																		result: indivMatchData.radiant_win,
+																		usage_5 : indivMatchData.players[playerValue].item_5} );
 		});
-	}
 	
 	console.log(matchInfo.length);
-	createMatchTable(document.getElementById("matchTable"), matchData);
+	console.log(matchInfo);
+	
 }
 
 class RequestHandler {
@@ -97,28 +105,25 @@ class RequestHandler {
 }
 
 
-function createMatchTable(table, matchData){
-	console.log(matchData);
-	var rowCount = 15;	
-	var columnCount = 5;
-	for (var i = 0; i < rowCount; i++){
-		var row = table.insertRow(i+1);
-		var matchJSON = matchData[i];
-		console.log(matchJSON);
-		var heroCell = row.insertCell(0);
-		heroCell.innerHTML = matchJSON.hero;
-		var DKACell = row.insertCell(1);
-		DKACell.innerHTML = matchJSON.deaths +","+matchJSON.kills+","+matchJSON.assists;
-		var durationCell = row.insertCell(2);
-		durationCell.innerHTML = Math.round(matchJSON.seconds/60)+":"+matchJSON.seconds % 60
-		var resultCell = row.insertCell(3);
-		if (matchJSON.result == true){
-			resultCell.innerHTML = "Radiant Victory";
-		} else {
-			resultCell.innerHTML = "Dire Victory";
-		}
-		var item5Cell = row.insertCell(4);
-		item5Cell.innerHTML = matchJSON.usage_5;
+function createMatchTable(table, i, matchJSON){
+	console.log(table);
+	console.log(i);
+	var row = table.insertRow(i+1);
+	console.log(matchJSON);
+	var heroCell = row.insertCell(0);
+	heroCell.innerHTML = matchJSON.hero;
+	var DKACell = row.insertCell(1);
+	DKACell.innerHTML = matchJSON.deaths +","+matchJSON.kills+","+matchJSON.assists;
+	var durationCell = row.insertCell(2);
+	durationCell.innerHTML = Math.round(matchJSON.seconds/60)+":"+matchJSON.seconds % 60
+	var resultCell = row.insertCell(3);
+	if (matchJSON.result == true){
+		resultCell.innerHTML = "Radiant Victory";
+	} else {
+		resultCell.innerHTML = "Dire Victory";
 	}
+	var item5Cell = row.insertCell(4);
+	item5Cell.innerHTML = matchJSON.usage_5;
 }
+
 setup();
