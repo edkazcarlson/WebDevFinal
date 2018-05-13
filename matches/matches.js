@@ -28,24 +28,6 @@ function setup(){
 	
 }
 
-<<<<<<< HEAD
-function soloMMR(url, requestHandler){
-	requestHandler.makeRequest("GET", url, function getMMR(data){
-		let mmr = JSON.parse(data);
-		if (mmr.solo_competitive_rank == null) {
-            mmr.solo_competitive_rank = "n/a";
-        }
-		document.getElementById("mmr").innerHTML = "MMR: " + mmr.solo_competitive_rank;
-	})
-}	
-
-function winLoss(url, requestHandler) {
-	requestHandler.makeRequest("GET", url + "wl", function getWinLoss(data) {
-		let wl = JSON.parse(data);
-		document.getElementById("win").innerHTML = "Wins: " +  wl.win;
-		document.getElementById("loss").innerHTML = "Losses: " + wl.lose;
-		document.getElementById("loader").innerHTML = "";
-=======
 function getRecentMatches(url, requestHandler, matchInfo) {
 	requestHandler.makeRequest("GET", url + "recentmatches", function (data) {
 		let matchStats = JSON.parse(data);
@@ -60,7 +42,6 @@ function getRecentMatches(url, requestHandler, matchInfo) {
 			assists: curMatch.assists});
 		}
 		heroNameIDFetch(matchStats, requestHandler, url);
->>>>>>> edd2
 	});
 }
 
