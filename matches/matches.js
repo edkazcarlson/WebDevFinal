@@ -18,6 +18,7 @@ function setup(){
 		let profile = player.profile;
 		document.getElementById("personaName").innerHTML = profile.personaname;
 		document.getElementById("profilePic").src = profile.avatarmedium;
+		winLoss(url, requestHandler);
 	});
 
 	getRecentMatches(url, requestHandler, matchInfo);
@@ -26,6 +27,15 @@ function setup(){
 	//requestHandler = new RequestHandler();
 	//requestHandler.makeRequest("GET", url, )
 	
+}
+
+function winLoss(url, requestHandler) {
+	requestHandler.makeRequest("GET", url + "wl", function getWinLoss(data) {
+		let wl = JSON.parse(data);
+		document.getElementById("win").innerHTML = "Wins: " +  wl.win;
+		document.getElementById("loss").innerHTML = "Losses: " + wl.lose;
+		document.getElementById("loader").innerHTML = "";
+	});
 }
 
 function getRecentMatches(url, requestHandler, matchInfo) {
@@ -123,7 +133,7 @@ function createMatchTable(table, matchJSON){
 	var heroCell = row.insertCell(0);
 	heroCell.innerHTML = matchJSON.hero;
 	var DKACell = row.insertCell(1);
-	DKACell.innerHTML = matchJSON.deaths +","+matchJSON.kills+","+matchJSON.assists;
+	DKACell.innerHTML = matchJSON.deaths +" - "+matchJSON.kills+" - "+matchJSON.assists;
 	var durationCell = row.insertCell(2);
 	durationCell.innerHTML = Math.round(matchJSON.seconds/60)+":"+matchJSON.seconds % 60
 	var resultCell = row.insertCell(3);

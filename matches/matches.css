@@ -110,14 +110,16 @@ a {
 
 /* h e r o s t a t t a b l e */
 
-#heroContainer {
+#matchContainer {
     background-color: #A9CBDE;
     margin-top: 20px;
 }
 
-#heroTable {
+#matchTable {
     padding-left: 15%;
     padding-right: 7%;
+    padding-top: 2%;
+    padding-bottom: 2%;
 }
 
 .col-special {

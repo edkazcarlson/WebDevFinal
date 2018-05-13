@@ -58,23 +58,21 @@ function soloMMR(url, requestHandler){
 function createHeroTable(table, heroInfo){
 	console.log(heroInfo);
 	var rowCount = 115;
-	var columnCount = 5;
+	var columnCount = 4;
 	for (var i = 0; i < rowCount; i++){
 		var row = table.insertRow(i+1);
 		let heroJSON = heroInfo[i];
 		var nameCell = row.insertCell(0);
 		nameCell.innerHTML = heroJSON.name;
-		var DKACell = row.insertCell(1);
-		DKACell.innerHTML = "boy I dont know how";
-		var lossCell = row.insertCell(2);
+		var lossCell = row.insertCell(1);
 		if (heroJSON.games == 0) {
 			lossCell.innerHTML = "n/a";
 		} else {
 			lossCell.innerHTML = Math.round(((heroJSON.games - heroJSON.win)/(heroJSON.games))*1000)/10	 + "%";
 		}
-		var lossVSCell = row.insertCell(3);
+		var lossVSCell = row.insertCell(2);
 		lossVSCell.innerHTML = Math.round(((heroJSON.against_games - heroJSON.against_win)/(heroJSON.against_games))*1000)/10	 + "%";
-		var legsCell = row.insertCell(4);
+		var legsCell = row.insertCell(3);
 		legsCell.innerHTML = heroJSON.legs;
 
 	}
