@@ -49,8 +49,10 @@ function heroNameIDFetch(matchStats, requestHandler, url){
 	let heroNamesToID = [];
 	requestHandler.makeRequest("GET", API_URL + "heroes", function getHeroStats(data) {
 		let heroNames = JSON.parse(data);
+		console.log(heroNames);
 		for (let i = 0; i < heroNames.length ; i++){
-			heroNamesToID.push(heroNames[i].localized_name);
+			heroNamesToID.push({name: heroNames[i].localized_name,
+								id: heroNames[i].id});
 		}
 		matchStatsFetch(matchStats, requestHandler, url, heroNamesToID)
 	});
@@ -68,8 +70,7 @@ function matchStatsFetch(matches, requestHandler, url, heroNamesToID){
 				} else {
 					playerValue++;
 				}
-			}
-			let playerData = indivMatchData.players[playerValue].player_slot;		
+			}		
 			/*matchInfo.push({matchID : matches[i].match_id,
 							hero : indivMatchData.players[playerValue].hero_id,
 							kills : indivMatchData.players[playerValue].kills,
@@ -79,8 +80,16 @@ function matchStatsFetch(matches, requestHandler, url, heroNamesToID){
 							result: indivMatchData.radiant_win,
 							usage_5 : indivMatchData.players[playerValue].item_5});*/
 			//matchInfo = matchData;
+			let heroNameForMatch = "";
+			for (let j = 0 ; j < 115 ; j++){
+				if(heroNamesToID[j].id == indivMatchData.players[playerValue].hero_id){
+					heroNameForMatch = heroNamesToID[j].name;
+					j = 999;
+				}
+				
+			}
 			createMatchTable(document.getElementById("matchTable"),{matchID : matches[i].match_id,
-																		hero : indivMatchData.players[playerValue].hero_id,
+																		hero : heroNameForMatch,
 																		kills : indivMatchData.players[playerValue].kills,
 																		deaths: indivMatchData.players[playerValue].deaths,
 																		assists: indivMatchData.players[playerValue].assists,
@@ -89,11 +98,6 @@ function matchStatsFetch(matches, requestHandler, url, heroNamesToID){
 																		usage_5 : indivMatchData.players[playerValue].item_5} );
 		});
 	}
-		
-	
-	console.log(matchInfo.length);
-	console.log(matchInfo);
-	
 }
 
 class RequestHandler {
