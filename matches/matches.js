@@ -99,6 +99,7 @@ function matchStatsFetch(matches, requestHandler, url, heroNamesToID){
 				}
 				
 			}
+			console.log(indivMatchData.players[playerValue].item_5 );
 			createMatchTable(document.getElementById("matchTable"),{matchID : matches[i].match_id,
 																		hero : heroNameForMatch,
 																		kills : indivMatchData.players[playerValue].kills,
@@ -106,7 +107,7 @@ function matchStatsFetch(matches, requestHandler, url, heroNamesToID){
 																		assists: indivMatchData.players[playerValue].assists,
 																		seconds: indivMatchData.players[playerValue].duration,
 																		result: indivMatchData.radiant_win,
-																		usage_5 : indivMatchData.players[playerValue].item_5} );
+																		usage_5 : indivMatchData.players[playerValue].item_5 + 0} );
 		});
 	}
 }
@@ -132,19 +133,93 @@ function createMatchTable(table, matchJSON){
 	console.log(matchJSON);
 	var heroCell = row.insertCell(0);
 	heroCell.innerHTML = matchJSON.hero;
-	var DKACell = row.insertCell(1);
-	DKACell.innerHTML = matchJSON.deaths +" - "+matchJSON.kills+" - "+matchJSON.assists;
-	var durationCell = row.insertCell(2);
+	var DeathCell = row.insertCell(1);
+	DeathCell.innerHTML = matchJSON.deaths;
+	var KillsCell = row.insertCell(2);
+	KillsCell.innerHTML = matchJSON.kills;
+	var AssistsCell = row.insertCell(3);
+	AssistsCell.innerHTML = matchJSON.assists;
+	var durationCell = row.insertCell(4);
 	durationCell.innerHTML = Math.round(matchJSON.seconds/60)+":"+matchJSON.seconds % 60
-	var resultCell = row.insertCell(3);
+	var resultCell = row.insertCell(5);
 	if (matchJSON.result == true){
 		resultCell.innerHTML = "Radiant Victory";
 	} else {
 		resultCell.innerHTML = "Dire Victory";
 	}
-	var item5Cell = row.insertCell(4);
+	var item5Cell = row.insertCell(6);
 	item5Cell.innerHTML = matchJSON.usage_5;
 	iteration++;
 }
 
+function sortTable(n) {
+	var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+	table = document.getElementById("matchTableContainer");
+	switching = true;
+	//Set the sorting direction to ascending:
+	dir = "asc"; 
+	/*Make a loop that will continue until
+	no switching has been done:*/
+	while (switching) {
+	  //start by saying: no switching is done:
+	  switching = false;
+	  rows = table.getElementsByTagName("TR");
+	  /*Loop through all table rows (except the
+	  first, which contains table headers):*/
+	  for (i = 1; i < (rows.length - 1); i++) {
+		//start by saying there should be no switching:
+		shouldSwitch = false;
+		/*Get the two elements you want to compare,
+		one from current row and one from the next:*/
+		x = rows[i].getElementsByTagName("TD")[n];
+		y = rows[i + 1].getElementsByTagName("TD")[n];
+		/*check if the two rows should switch place,
+		based on the direction, asc or desc:*/
+		if (n == 0 | n == 5){
+			if (dir == "asc") {
+				if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+					//if so, mark as a switch and break the loop:
+					shouldSwitch= true;
+					break;
+				}
+			} else if (dir == "desc") {
+				if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+					//if so, mark as a switch and break the loop:
+					shouldSwitch = true;
+					break;
+				}
+			}
+		} else {
+			if (dir == "asc") {
+				if (parseInt(x.innerHTML) > parseInt(y.innerHTML)) {
+					//if so, mark as a switch and break the loop:
+					shouldSwitch= true;
+					break;
+				}
+			} else if (dir == "desc") {
+				if ((parseInt(x.innerHTML) < parseInt(y.innerHTML))) {
+					//if so, mark as a switch and break the loop:
+					shouldSwitch = true;
+					break;
+				}
+			}
+		}
+	  }
+	  if (shouldSwitch) {
+		/*If a switch has been marked, make the switch
+		and mark that a switch has been done:*/
+		rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+		switching = true;
+		//Each time a switch is done, increase this count by 1:
+		switchcount ++;      
+	  } else {
+		/*If no switching has been done AND the direction is "asc",
+		set the direction to "desc" and run the while loop again.*/
+		if (switchcount == 0 && dir == "asc") {
+		  dir = "desc";
+		  switching = true;
+		}
+	  }
+	}
+  }
 setup();

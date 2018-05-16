@@ -30,15 +30,16 @@
         </div>
 
         <div class="container" id="matchContainer">
-            
-            <table class="row">
+            <table id = "matchTableContainer" class="row">
                 <thead id="matchTable">
                     <tr>
-                        <th class="col-special">Hero</th>
-                        <th class="col-special">D-K-A</th>
-                        <th class="col-special">Duration</th>
-                        <th class="col-special">Result</th>
-                        <th class="col-special">Item Slot 5 Uses</th>
+                        <th onclick="sortTable(0)" class="col-special">Hero</th>
+                        <th onclick="sortTable(1)" class="col-special">Deaths</th>
+                        <th onclick="sortTable(2)" class="col-special">Kills</th>
+                        <th onclick="sortTable(3)" class="col-special">Assists</th>
+                        <th onclick="sortTable(4)" class="col-special">Duration</th>
+                        <th onclick="sortTable(5)" class="col-special">Result</th>
+                        <th onclick="sortTable(6)" class="col-special">Item Slot 5 Uses</th>
                     </tr>
                 </thead>
             </table>
