@@ -155,6 +155,15 @@ function createMatchTable(table, matchJSON){
 function sortTable(n) {
 	var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
 	table = document.getElementById("matchTableContainer");
+	firstRow = table.getElementsByTagName("TR")[0];
+	firstRow.cells[0].style.color= "black";
+	firstRow.cells[1].style.color= "black";
+	firstRow.cells[2].style.color= "black";
+	firstRow.cells[3].style.color= "black";
+	firstRow.cells[4].style.color= "black";
+	firstRow.cells[5].style.color= "black";
+	firstRow.cells[6].style.color= "black";
+	firstRow.cells[n].style.color= "red";
 	switching = true;
 	//Set the sorting direction to ascending:
 	dir = "asc"; 
