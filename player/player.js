@@ -127,6 +127,13 @@ class RequestHandler {
 function sortTable(n) {
 	var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
 	table = document.getElementById("heroTable");
+	firstRow = table.getElementsByTagName("TR")[0];
+	firstRow.cells[0].style.color= "black";
+	firstRow.cells[1].style.color= "black";
+	firstRow.cells[2].style.color= "black";
+	firstRow.cells[3].style.color= "black";
+	firstRow.cells[n].style.color= "red";
+	console.log(firstRow.cells[n].innerHTML);
 	switching = true;
 	//Set the sorting direction to ascending:
 	dir = "asc"; 
